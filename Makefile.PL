@@ -10,6 +10,7 @@ WriteMakefile(
     PL_FILES            => {},
     PREREQ_PM => {
         'Test::More' => 0,
+        "GraphViz" => 0,
         "Catalyst" => 0,
         "Catalyst::Plugin::SubRequest" => 0,
     },
