@@ -5,8 +5,8 @@ use ExtUtils::MakeMaker;
 WriteMakefile(
     NAME                => 'Catalyst::View::GraphViz',
     AUTHOR              => 'Johan Lindström <johanl@cpan.org>',
-    VERSION_FROM        => 'lib\Catalyst\View\GraphViz.pm',
-    ABSTRACT_FROM       => 'lib\Catalyst\View\GraphViz.pm',
+    VERSION_FROM        => 'lib/Catalyst/View/GraphViz.pm',
+    ABSTRACT_FROM       => 'lib/Catalyst/View/GraphViz.pm',
     PL_FILES            => {},
     PREREQ_PM => {
         'Test::More' => 0,

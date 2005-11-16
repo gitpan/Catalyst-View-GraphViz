@@ -5,7 +5,7 @@ use base qw/Catalyst::Base/;
 use GraphViz;
 use NEXT;
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 =head1 NAME
 
@@ -218,7 +218,12 @@ then your imap action should look like this:
 
 =head2 Call the Imagemap Action
 
-Let's assume these actions are in the Controller "Graph".
+First make sure you have the SubRequest plugin loaded:
+
+    use Catalyst qw/SubRequest/;  
+
+This is how to perform the SubRequest. Let's assume these actions are
+in the Controller "Graph":
 
     $c->stash->{html_imagemap} = $c->subreq("/graph/imap");
 
