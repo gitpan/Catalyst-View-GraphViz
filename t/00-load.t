@@ -6,4 +6,4 @@ BEGIN {
 use_ok( 'Catalyst::View::GraphViz' );
 }
 
-diag( "Testing Catalyst::View::GraphViz $Catalyst::View::GraphViz::VERSION, Perl 5.008006, C:\Perl\bin\perl.exe" );
+diag( "Testing Catalyst::View::GraphViz $Catalyst::View::GraphViz::VERSION, Perl 5.008006");
