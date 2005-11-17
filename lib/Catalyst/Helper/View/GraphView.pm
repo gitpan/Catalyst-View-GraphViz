@@ -33,7 +33,7 @@ L<Catalyst::Response>, L<Catalyst::Helper>
 
 =head1 AUTHOR
 
-Johan Lindström, C<johanl@cpan.org>
+Johan Lindstrom, C<johanl@cpan.org>
 
 =head1 LICENSE
 

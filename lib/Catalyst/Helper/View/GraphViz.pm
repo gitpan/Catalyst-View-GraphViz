@@ -33,7 +33,7 @@ L<Catalyst::Response>, L<Catalyst::Helper>
 
 =head1 AUTHOR
 
-Sebastian Riedel, C<sri@oook.de>
+Johan Lindstrom, C<johanl@cpan.org>
 
 =head1 LICENSE
 

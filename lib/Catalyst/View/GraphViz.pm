@@ -5,7 +5,7 @@ use base qw/Catalyst::Base/;
 use GraphViz;
 use NEXT;
 
-our $VERSION = '0.04';
+our $VERSION = '0.05';
 
 =head1 NAME
 
@@ -17,8 +17,7 @@ Catalyst::View::GraphViz - GraphViz View Class
 
     script/myapp_create.pl view GraphViz GraphViz
 
-This creates the MyApp::View::GraphViz class, which you may modify to
-change the default config.
+This creates the MyApp::View::GraphViz class.
 
 
 =head2 Build the GraphViz object
@@ -38,10 +37,10 @@ change the default config.
 
 =head2 Forward to the View
 
-    #Meanwhile, maybe in a private C<end> action
+    #Meanwhile, maybe in a private end action
     if(!$c->res->body) {
         if($c->stash->{template}) {
-            $c->forward('MyApp::V::TT');
+            $c->forward('MyApp::View::TT');
         } elsif($c->stash->{graphviz}->{graph}) {
             $c->forward('MyApp::View::GraphViz');
         } else {
@@ -82,14 +81,15 @@ colors, shapes, etc.
 
 Consider how the GraphViz View relates to templating systems:
 
-                  Templating System      GraphViz
-                  -----------------      --------
-  Model         | Model object(s)        Model object(s) (a graph)
-  Output        | Rendered HTML          Rendered graph image/imagemap
-  View          | TT/Mason/?             View::GraphViz
-  View code     | Custom template file   Custom View class
-  Set "look"    | $c->stash->{template}  $c->stash->{graphview}->{view}
-  E.g. "look"   | update.thtml           MyApp::View::OddEvenGraph
+                     Templating System      GraphViz
+                     -----------------      --------
+  Model            | Model object(s)        Model object(s) (a graph)
+  Output           | Rendered HTML          Rendered graph image/imagemap
+  View             | TT/Mason/?             View::GraphViz
+  View code        | Custom template file   Custom View class
+  Set "look"       | $c->stash->{template}  $c->stash->{graphview}->{view}
+  Set model object | varies                 $c->stash->{graphview}->{object}
+  E.g. "look"      | update.thtml           MyApp::View::OddEvenGraph
 
 So when using TT as a rendering engine, the template contains the
 instructions for how to display the Model object. You have many
@@ -107,8 +107,8 @@ Here's how to create a specific View class for each type of graph.
 As an example, let's create a view to render a graph of numbers, where
 the odd number nodes are boxes, and the even are ellipses.
 
-Our model object is set like this somewhere (for a demo, just put it
-in the MyApp::default sub):
+Our model object is set like this somewhere (for a quick demo, just
+put it in the MyApp::default sub):
 
     $c->stash->{graphview}->{object} = {
         3 => 2,
@@ -162,17 +162,17 @@ to suit your needs.
         my $graph = $c->stash->{graphview}->{object} or
                 die('No object specified in $c->stash->{graphview}->{object} for rendering');
 
-        my $graphViz = GraphViz->new(node => {
+        my $graphviz = GraphViz->new(node => {
             name => "oddeven",
         });
 
-        $graphViz->add_node($_, shape => ($_ % 2) ? "box" : "ellipse") for(keys %$graph);
+        $graphviz->add_node($_, shape => ($_ % 2) ? "box" : "ellipse") for(keys %$graph);
         while(my ($from, $to) = each %$graph) {
-            $graphViz->add_edge($from, $to);
+            $graphviz->add_edge($from, $to);
         }
 
 
-        $c->stash->{graphviz}->{graph} = $graphViz;
+        $c->stash->{graphviz}->{graph} = $graphviz;
         $c->forward('MyApp::View::GraphViz');
 
         return 1;
@@ -252,7 +252,7 @@ in the View class. Actually, there is a clever shortcut in GraphViz
 for this, so instead of specifying it for each node, you can set a
 default when calling
 
-    my $graphViz = GraphViz->new(node => { URL => '/graph/node/select?name=\N' });
+    my $graphviz = GraphViz->new(node => { URL => '/graph/node/select?name=\N' });
 
 The \N is a placeholder for the name of each node.
 
@@ -354,10 +354,24 @@ sub process {
 L<Catalyst>, L<GraphViz>
 
 
+=head1 CHANGES
+
+
+
+
+=head2 0.05
+
+Docs
+
+
+=head2 0.01 - 0.04
+
+Makefile and Windows/Unix stuff
+
 
 =head1 AUTHOR
 
-Johan Lindström, C<johanl@cpan.org>
+Johan Lindstrom, C<johanl@cpan.org>
 
 
 
